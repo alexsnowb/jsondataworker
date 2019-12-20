@@ -1,5 +1,5 @@
 {
-    "name": "snowb/jsondataworker",
+    "name": "snowb/dataworker",
     "license": "MIT",
     "description": "If import CSV file -> export converted data",
     "require": {

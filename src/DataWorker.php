@@ -4,10 +4,6 @@
 namespace Snowb\DataWorker;
 
 
-use Upload\File;
-use Upload\Validation\Mimetype;
-use Upload\Validation\Size;
-
 /**
  * Class DataWorker
  * @package Snowb\DataWorker
@@ -19,7 +15,7 @@ class DataWorker
     private $uploadDir;
     /** @var string */
     private $downloadDir;
-    /** @var File */
+    /** @var \Upload\File */
     private $uploadedFile;
     /**
      * @var array
@@ -34,7 +30,7 @@ class DataWorker
     {
         if (empty($uploadDir))
             throw new \InvalidArgumentException('Upload directory not configured');
-        if (empty($downloadDir))
+        if (empty($uploadDir))
             throw new \InvalidArgumentException('Download directory not configured');
         $this->uploadDir = $uploadDir;
         $this->downloadDir = $downloadDir;
@@ -52,8 +48,8 @@ class DataWorker
 
     public function uploadFile($key = 'file')
     {
-        $storage = new FileSystem($this->uploadDir);
-        $file = new File($key, $storage);
+        $storage = new \Upload\Storage\FileSystem($this->uploadDir);
+        $file = new \Upload\File($key, $storage);
 
         // Optionally you can rename the file on upload
         $new_filename = uniqid();
@@ -63,10 +59,10 @@ class DataWorker
         // MimeType List => http://www.iana.org/assignments/media-types/media-types.xhtml
         $file->addValidations(array(
             // Ensure file is of type "text/csv"
-            new Mimetype(['text/csv', 'text/plain']),
+            new \Upload\Validation\Mimetype(['text/csv', 'text/plain']),
 
             // Ensure file is no larger than 5M (use "B", "K", M", or "G")
-            new Size('5M')
+            new \Upload\Validation\Size('5M')
         ));
 
         // Try to upload file
