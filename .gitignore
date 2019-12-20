@@ -1,0 +1,10 @@
+
+# IntelliJ project files
+.idea
+
+
+/public/uploads
+/public/downloads
+/vendor/
+/composer.lock
+vendor/
