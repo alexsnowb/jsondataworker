@@ -100,7 +100,7 @@ class DataWorker
     public function outputData()
     {
         header('Content-Type: application/json');
-        echo json_encode($this->output);
+        echo json_encode($this->output,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
 
